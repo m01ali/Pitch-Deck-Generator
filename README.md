@@ -61,10 +61,16 @@ pip install openai reportlab pillow requests
 
 ## Usage
 
-1. Run the script:
+1. Run the script (CLI):
 
 ```bash
 python generate_pitch_deck_ppt.py
+```
+
+* For interface: 
+
+```bash
+python gradio_app.py
 ```
 
 2. Enter your startup idea when prompted
