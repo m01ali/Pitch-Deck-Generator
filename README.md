@@ -1,6 +1,6 @@
 # Pitch Deck Generator
 
-A Python tool that automatically generates professional pitch decks for startup ideas using LLaMA 4 Maverick (via Novita AI) and Unsplash images.
+A Python tool that automatically generates professional pitch decks for startup ideas using GPT4o and Unsplash images.
 
 ## Features
 
