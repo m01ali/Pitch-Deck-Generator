@@ -94,7 +94,7 @@ The script generates two files:
 
 ### API Authentication Errors
 
-- For Novita AI: Ensure you're using the correct API key from your account
+- For OpenRouter: Ensure you're using the correct API key from your account
 - For Unsplash: Make sure you're using the Access Key (not the Secret Key) as prompted
 
 ### Image Fetching Issues
