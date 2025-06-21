@@ -24,7 +24,7 @@ A Python tool that automatically generates professional pitch decks for startup 
 
 - Python 3.8+
 - Required Python packages (see Installation)
-- Novita AI API key (for LLaMA 4 Maverick access)
+- OpenRouter API key (for GPT-4o access)
 - Unsplash API Access Key (for images)
 
 ## Installation
@@ -45,11 +45,12 @@ source venv/bin/activate  # On macOS/Linux
 pip install openai reportlab pillow requests
 ```
 
+
 ## API Keys Setup
 
-### Novita AI API Key
+### OpenRouter API Key
 
-1. Sign up for a Novita AI account at [https://novita.ai](https://novita.ai)
+1. Sign up for an OpenRouter account at [https://openrouter.ai](https://openrouter.ai)
 2. Navigate to your account settings to find your API key
 3. Set it as an environment variable or enter it when prompted by the script
 

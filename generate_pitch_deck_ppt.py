@@ -1,4 +1,5 @@
 import json
+import openai
 import requests
 import os
 from openai import OpenAI
