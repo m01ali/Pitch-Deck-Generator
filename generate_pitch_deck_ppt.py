@@ -13,11 +13,11 @@ from io import BytesIO
 
 # === CONFIGURATION ===
 # Check if API keys are set or prompt user to enter them
-NOVITA_API_KEY = os.environ.get("NOVITA_API_KEY", None)
-if not NOVITA_API_KEY or NOVITA_API_KEY == "YOUR_NOVITA_API_KEY":
-    NOVITA_API_KEY = input("Enter your Novita AI API key: ")
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", None)
+if not OPENROUTER_API_KEY or OPENROUTER_API_KEY == "YOUR_OPENROUTER_API_KEY":
+    OPENROUTER_API_KEY = input("Enter your OpenRouter API key: ")
     # Save to environment variable for future use
-    os.environ["NOVITA_API_KEY"] = NOVITA_API_KEY
+    os.environ["OPENROUTER_API_KEY"] = OPENROUTER_API_KEY
 
 # For Unsplash, we need the Access Key (not the Secret Key)
 # The Access Key is used as the Client-ID in API requests
@@ -29,11 +29,11 @@ if not UNSPLASH_ACCESS_KEY or UNSPLASH_ACCESS_KEY == "YOUR_UNSPLASH_API_KEY":
     # Save to environment variable for future use
     os.environ["UNSPLASH_ACCESS_KEY"] = UNSPLASH_ACCESS_KEY
 
-MODEL = "meta-llama/llama-4-maverick-17b-128e-instruct-fp8"
+MODEL = "openai/gpt-4o"
 
 client = OpenAI(
-    base_url="https://api.novita.ai/v3/openai",
-    api_key=NOVITA_API_KEY,
+    base_url="https://openrouter.ai/api/v1",
+    api_key=OPENROUTER_API_KEY,
 )
 
 slide_order = [
@@ -44,8 +44,8 @@ slide_order = [
 
 def get_structured_content(idea):
     # Check if we have a valid API key
-    if not NOVITA_API_KEY or NOVITA_API_KEY == "YOUR_NOVITA_API_KEY":
-        raise ValueError("Novita AI API key is not set. Please set a valid API key.")
+    if not OPENROUTER_API_KEY or OPENROUTER_API_KEY == "YOUR_OPENROUTER_API_KEY":
+        raise ValueError("OpenRouter API key is not set. Please set a valid API key.")
     
     prompt = f"""
     Generate a JSON object for a startup pitch deck based on the idea: '{idea}'.
@@ -57,7 +57,7 @@ def get_structured_content(idea):
     """
 
     try:
-        print("🔄 Generating content with LLaMA 4 Maverick...")  
+        print("🔄 Generating content with GPT-4o...")  
         res = client.chat.completions.create(
             model=MODEL,
             messages=[
@@ -71,7 +71,10 @@ def get_structured_content(idea):
             presence_penalty=0,
             frequency_penalty=0,
             response_format={"type": "json_object"},
-            extra_body={"top_k": 50, "repetition_penalty": 1, "min_p": 0}
+            extra_headers={
+                "HTTP-Referer": "https://pitch-deck-generator.com",
+                "X-Title": "Pitch Deck Generator",
+            }
         )
 
         content = res.choices[0].message.content
@@ -99,7 +102,7 @@ def get_structured_content(idea):
     
     except openai.AuthenticationError as e:
         print(f"❌ Authentication error: {e}")
-        raise ValueError("Invalid API key. Please check your Novita AI API key and try again.")
+        raise ValueError("Invalid API key. Please check your OpenRouter API key and try again.")
     
     except openai.RateLimitError as e:
         print(f"❌ Rate limit exceeded: {e}")
@@ -107,7 +110,7 @@ def get_structured_content(idea):
     
     except openai.APIError as e:
         print(f"❌ API error: {e}")
-        raise ValueError("An error occurred with the Novita AI API. Please try again later.")
+        raise ValueError("An error occurred with the OpenRouter API. Please try again later.")
     
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
@@ -246,7 +249,7 @@ def create_pdf(structured_content, title):
     # Add title page
     story.append(Paragraph(title, title_style))
     story.append(Spacer(1, 0.25*inch))
-    story.append(Paragraph("Pitch Deck Generated with LLaMA 4 Maverick (Novita AI)", subtitle_style))
+    story.append(Paragraph("Pitch Deck Generated with GPT-4o (OpenRouter)", subtitle_style))
     story.append(Spacer(1, 1*inch))
     
     # Add each section

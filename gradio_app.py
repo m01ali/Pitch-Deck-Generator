@@ -4,24 +4,24 @@ import tempfile
 from generate_pitch_deck_ppt import get_structured_content, create_pdf
 
 # Initialize API keys from environment variables (will be overridden by UI inputs)
-NOVITA_API_KEY = os.environ.get("NOVITA_API_KEY", "")
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
 
-def generate_pitch_deck(idea, novita_key, unsplash_key):
+def generate_pitch_deck(idea, openrouter_key, unsplash_key):
     """
     Wrapper function for the pitch deck generator that works with Gradio
     Returns the path to the generated PDF and JSON files
     """
     try:
         # Update API keys from UI inputs
-        if novita_key:
-            os.environ["NOVITA_API_KEY"] = novita_key
+        if openrouter_key:
+            os.environ["OPENROUTER_API_KEY"] = openrouter_key
         if unsplash_key:
             os.environ["UNSPLASH_ACCESS_KEY"] = unsplash_key
             
         # Validate we have required API keys
-        if not os.environ.get("NOVITA_API_KEY"):
-            raise ValueError("Novita AI API key is required")
+        if not os.environ.get("OPENROUTER_API_KEY"):
+            raise ValueError("OpenRouter API key is required")
             
         # Generate structured content
         structured = get_structured_content(idea)
@@ -42,7 +42,7 @@ def main():
     """
     with gr.Blocks(title="Pitch Deck Generator", theme="soft") as demo:
         gr.Markdown("# 🚀 AI-Powered Pitch Deck Generator")
-        gr.Markdown("Generate professional pitch decks for your startup ideas using LLaMA 4 Maverick")
+        gr.Markdown("Generate professional pitch decks for your startup ideas using GPT-4o")
         
         with gr.Row():
             with gr.Column():
@@ -55,8 +55,8 @@ def main():
                 
                 # API key inputs
                 with gr.Accordion("API Keys (Optional)", open=False):
-                    novita_key = gr.Textbox(
-                        label="Novita AI API Key",
+                    openrouter_key = gr.Textbox(
+                        label="OpenRouter API Key",
                         type="password",
                         placeholder="Leave blank to use environment variable or be prompted"
                     )
@@ -77,7 +77,7 @@ def main():
         # Set up button click handler with all inputs
         submit_btn.click(
             fn=generate_pitch_deck,
-            inputs=[idea_input, novita_key, unsplash_key],
+            inputs=[idea_input, openrouter_key, unsplash_key],
             outputs=[pdf_output, json_output]
         )
         
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # Skip the main() function and launch directly
     with gr.Blocks(title="Pitch Deck Generator", theme="soft") as demo:
         gr.Markdown("# 🚀 AI-Powered Pitch Deck Generator")
-        gr.Markdown("Generate professional pitch decks for your startup ideas using LLaMA 4 Maverick")
+        gr.Markdown("Generate professional pitch decks for your startup ideas using GPT-4o")
         
         with gr.Row():
             with gr.Column():
@@ -112,11 +112,11 @@ if __name__ == "__main__":
                 
                 # API key inputs (now required in the UI)
                 with gr.Accordion("API Keys (Required)", open=True):
-                    novita_key = gr.Textbox(
-                        label="Novita AI API Key",
+                    openrouter_key = gr.Textbox(
+                        label="OpenRouter API Key",
                         type="password",
-                        placeholder="Enter your Novita AI API key",
-                        value=NOVITA_API_KEY
+                        placeholder="Enter your OpenRouter API key",
+                        value=OPENROUTER_API_KEY
                     )
                     unsplash_key = gr.Textbox(
                         label="Unsplash Access Key",
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         # Set up button click handler with all inputs
         submit_btn.click(
             fn=generate_pitch_deck,
-            inputs=[idea_input, novita_key, unsplash_key],
+            inputs=[idea_input, openrouter_key, unsplash_key],
             outputs=[pdf_output, json_output]
         )
         
