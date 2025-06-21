@@ -4,7 +4,7 @@ A Python tool that automatically generates professional pitch decks for startup 
 
 ## Features
 
-- **AI-Powered Content Generation**: Uses LLaMA 4 Maverick to create structured content for your pitch deck
+- **AI-Powered Content Generation**: Uses GPT4o to create structured content for your pitch deck
 - **Professional PDF Format**: Generates beautifully formatted PDF documents with consistent styling
 - **Relevant Images**: Automatically fetches relevant images from Unsplash for each section
 - **Comprehensive Structure**: Includes all essential pitch deck sections:
@@ -77,7 +77,7 @@ python gradio_app.py
 2. Enter your startup idea when prompted
 
 3. The script will:
-   - Generate structured content using LLaMA 4 Maverick
+   - Generate structured content 
    - Fetch relevant images from Unsplash
    - Create a professionally formatted PDF
    - Save both the PDF and the structured JSON content
