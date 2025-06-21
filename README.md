@@ -42,7 +42,7 @@ source venv/bin/activate  # On macOS/Linux
 3. Install the required packages:
 
 ```bash
-pip install openai reportlab pillow requests
+pip install openai reportlab pillow requests PyMuPDF
 ```
 
 
@@ -82,25 +82,6 @@ python gradio_app.py
    - Create a professionally formatted PDF
    - Save both the PDF and the structured JSON content
 
-## Example
-
-```
-📊 Pitch Deck Generator - PDF Edition 📊
-===========================================
-
-Enter your startup idea: An AI-driven platform that scans public social media to detect early signs of mental health issues
-
-🚀 Generating your pitch deck...
-
-🔄 Generating content with LLaMA 4 Maverick...
-✅ Content generated successfully!
-🔍 Searching for image related to 'Problem'...
-✅ Found image for 'Problem', downloading...
-...
-
-✨ All done! Your pitch deck has been created successfully.
-📄 You can find your PDF at: D:\pitchdeck\an_ai-driven_platform_that_scans_public_social_med_pitch_deck.pdf
-```
 
 ## Output Files
 
@@ -128,7 +109,6 @@ MIT
 
 ## Acknowledgements
 
-- [Novita AI](https://novita.ai) for providing access to LLaMA 4 Maverick
 - [Unsplash](https://unsplash.com) for the image API
 - [ReportLab](https://www.reportlab.com/) for PDF generation
 - [OpenAI](https://openai.com) for the client library structure
